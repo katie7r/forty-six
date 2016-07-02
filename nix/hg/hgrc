@@ -1,0 +1,40 @@
+[ui]
+  # Name data to appear in commits
+  username = Katie Russ <katie.k7r@gmail.com>
+  ssh = ssh -C
+[tortoisehg]
+  editor = Atom
+[extensions]
+  shelve=
+  hggit=
+  # enable color extension
+  color =
+  # enable extdiff extension (Extended Diff)
+  hgext.extdiff =
+[extdiff]
+  # configure extended diff to use colordiff (requires colordiff installed in your system)
+  cmd.cdiff = colordiff
+  opts.cdiff = -uprN
+[color]
+  # configure colors for each possible hg status
+  status.modified = blue bold
+  status.added = green bold
+  status.removed = red bold
+  status.deleted = cyan bold
+  status.unknown = magenta bold
+  status.ignored = white bold
+  # and for hg diff output also
+  diff.diffline = bold
+  diff.extended = cyan bold
+  diff.file_a = red bold
+  diff.file_b = green bold
+  diff.hunk = magenta
+  diff.deleted = red
+  diff.inserted = green
+  diff.changed = white
+  diff.trailingwhitespace = bold red_background
+[defaults]
+  # suppress noisy extdiff header message
+  cdiff = -q
+[alias]
+  gitlog = log --limit 10 --template '\033[0;33mcommit: {rev}:{node}\n\033[0mAuthor: {author}\nDate:   {date|rfc822date}\n\n\t{desc|strip|fill68|tabindent}\n\n'
