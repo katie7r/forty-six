@@ -133,12 +133,12 @@ if ! shopt -oq posix; then
 fi
 
 # Virtualenv(wrapper)
-VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-#VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2.7
-export VIRTUALENVWRAPPER_PYTHON
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+  VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+  #VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2.7
+  export VIRTUALENVWRAPPER_PYTHON
+  export WORKON_HOME=$HOME/.virtualenvs
+  export PROJECT_HOME=$HOME/Code
   source /usr/local/bin/virtualenvwrapper.sh
 fi
 

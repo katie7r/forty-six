@@ -50,15 +50,6 @@ declare -a DEVELOPMENT_LIST SYSTEM_LIST
 
 PRIMARY_SYSTEM=jeffcof64-cent7x-01
 
-# Note: We're now picking up the development hosts from the .pbuild file
-
-# DEVELOPMENT_LIST=(`egrep ^host: ~/.pbuild | egrep -e '[[:space:]]main$' -e '[[:space:]]main[[:space:]]' | awk '{print $3}'`)
-DEVELOPMENT_LIST=( `egrep ^host: ~/.pbuild | awk '{print $3}' | sort -u` )
-SYSTEM_LIST=( ${DEVELOPMENT_LIST[*]}
-    ostcdev-cent6-10 ostcdev64-cent6-01
-)
-BUILD_LIST=( `egrep ^host: ~/.pbuild | egrep 'build.*nip$' | awk '{print $3}' | sort -u` )
-
 # Random other aliases and enviornment variables
 
 IGNOREEOF=3
