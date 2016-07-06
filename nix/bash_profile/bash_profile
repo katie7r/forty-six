@@ -11,24 +11,6 @@ test -s ~/.alias && . ~/.alias || true
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 
-# Getting an error when running some X-based programs:
-#
-# Couldn't connect to accessibility bus: Failed to connect to socket ...
-#
-# Apparently forwarding accessibility bus over SSH isn't supported.
-# Squelch the error
-
-export NO_AT_BRIDGE=1
-
-# Teamprise settings
-# Note: assuming domain username is the same as UNIX user;
-#       if that's not the case, edit the line below
-
-WINDOWS_DOMAIN=REDMOND
-WINDOWS_USERNAME=$USER
-export TF_DIFF_COMMAND='diff -u --label "%6 / %7" "%1" "%2"'
-export TF_AUTO_SAVE_CREDENTIALS=1
-
 # Include GIT auto-completion script if it exists
 # Note: This sort of thing is included in older systems
 # Comment out unless we know we need it or can decide when to include
@@ -38,8 +20,8 @@ export TF_AUTO_SAVE_CREDENTIALS=1
 # Set up common aliases and enviornment variables
 #
 
-alias mount-ostcdata="sudo mkdir /mnt/ostcdata; sudo mount -o vers=3 ostcrrhv02:/ostcdata /mnt/ostcdata"
-alias openssl-scx="openssl x509 -noout -in /etc/opt/microsoft/scx/ssl/scx.pem -subject -issuer"
+# alias mount-ostcdata="sudo mkdir /mnt/ostcdata; sudo mount -o vers=3 ostcrrhv02:/ostcdata /mnt/ostcdata"
+# alias openssl-scx="openssl x509 -noout -in /etc/opt/microsoft/scx/ssl/scx.pem -subject -issuer"
 
 # List of systems used for development purposes
 #   PRIMARY_SYSTEM:	Primary development system (source for .teamprise files, etc)
@@ -48,14 +30,11 @@ alias openssl-scx="openssl x509 -noout -in /etc/opt/microsoft/scx/ssl/scx.pem -s
 
 declare -a DEVELOPMENT_LIST SYSTEM_LIST
 
-PRIMARY_SYSTEM=jeffcof64-cent7x-01
-
 # Random other aliases and enviornment variables
 
 IGNOREEOF=3
 
 alias file_manager="nautilus --no-desktop"
-alias doxy="firefox file:///home/jeffcof/dev/target/scxcore_doc/html/index.html &"
 
 #
 # Platform specific setup

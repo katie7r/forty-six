@@ -151,6 +151,13 @@ export PATH="$HOME/.bin:$PATH"
 export NVM_DIR="/home/me/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
+# Overwrite hg/git email address for work account
+if [ $USER == 'cuttlesoft' ]; then
+  export EMAIL="katie@cuttlesoft.com"
+  `git config --global user.email "$EMAIL"`
+else
+  export EMAIL="katie.k7r@gmail.com"
+fi
 
 # git function to rebase to root, squashing all commits to a single one
 # with the message given by the user, e.g., $ git-reboot "Starting fresh"
