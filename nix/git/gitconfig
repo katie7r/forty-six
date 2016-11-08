@@ -1,5 +1,5 @@
 [user]
-  email = katie.k7r@gmail.com
+  email = katie@cuttlesoft.com
   name = Katie Russ
 [color]
   ui = true
@@ -13,6 +13,10 @@
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   type = cat-file -t
   dump = cat-file -p
+  # More for me
+  diffs = diff --staged
+  ignore = update-index --assume-unchanged
+  unignore = update-index --no-assume-unchanged
   # Provided with example gitconfig
   lol = log --oneline --graph
   co-master = !git checkout master && git submodule foreach git checkout master

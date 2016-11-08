@@ -1,5 +1,5 @@
 [ui]
-username = Katie Russ <$EMAIL>
+username = Katie Russ <katie@cuttlesoft.com>
 ssh = ssh -C
 
 [tortoisehg]
@@ -7,7 +7,7 @@ editor = Atom
 
 [extensions]
 shelve=
-hggit=
+# hggit=
 # enable color extension
 color =
 # enable extdiff extension (Extended Diff)

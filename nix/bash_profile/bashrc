@@ -65,8 +65,8 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # import git prompt
-if [ -f ../git/.git-prompt.sh ]; then
-  source ../git/.git-prompt.sh
+if [ -f ./.git-prompt.sh ]; then
+  source ./.git-prompt.sh
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
@@ -159,9 +159,16 @@ else
   export EMAIL="katie.k7r@gmail.com"
 fi
 
+if [ -f ./.git-completion.bash ]; then
+  source ~/.git-completion.bash
+fi
+
 # git function to rebase to root, squashing all commits to a single one
 # with the message given by the user, e.g., $ git-reboot "Starting fresh"
 git-reboot ()
 {
   git reset $(git commit-tree HEAD^{tree} -m "$1")
 }
+
+# added by travis gem
+[ -f /Users/katieruss/.travis/travis.sh ] && source /Users/katieruss/.travis/travis.sh
