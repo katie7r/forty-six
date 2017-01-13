@@ -17,6 +17,9 @@
   diffs = diff --staged
   ignore = update-index --assume-unchanged
   unignore = update-index --no-assume-unchanged
+  unadd = reset
+  uncommit = reset --soft
+  rollback = reset --hard
   # Provided with example gitconfig
   lol = log --oneline --graph
   co-master = !git checkout master && git submodule foreach git checkout master
