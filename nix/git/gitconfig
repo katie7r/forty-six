@@ -13,7 +13,10 @@
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   type = cat-file -t
   dump = cat-file -p
+  unstage = reset HEAD --
+  last = log -1 HEAD
   # More for me
+  cb = checkout -b
   diffs = diff --staged
   ignore = update-index --assume-unchanged
   unignore = update-index --no-assume-unchanged
