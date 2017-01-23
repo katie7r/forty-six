@@ -17,7 +17,9 @@
   last = log -1 HEAD
   # More for me
   cb = checkout -b
+  amend = commit --amend -C HEAD
   diffs = diff --staged
+  latest = diff HEAD~2 HEAD
   ignore = update-index --assume-unchanged
   unignore = update-index --no-assume-unchanged
   unadd = reset
