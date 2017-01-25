@@ -19,6 +19,12 @@
   cb = checkout -b
   amend = commit --amend -C HEAD
   diffs = diff --staged
+  # TODO: try to figure out how to compress these
+  # these four commands show commit diff between branches, with "<" and ">" indicating which branch
+  diffc = "!f() { git log --oneline --graph --first-parent --decorate --left-right HEAD...$1; }; f" # vs current branch, all commits
+  diffc- = "!f() { git log --oneline --graph --first-parent --decorate --left-right HEAD..$1; }; f" # vs current branch, new commits
+  diffcc = "!f() { git log --oneline --graph --first-parent --decorate --left-right $1...$2; }; f" # vs specified branch, all commits
+  diffcc- = "!f() { git log --oneline --graph --first-parent --decorate --left-right $1..$2; }; f" # vs specified branch, new commits
   latest = diff HEAD~2 HEAD
   ignore = update-index --assume-unchanged
   unignore = update-index --no-assume-unchanged
