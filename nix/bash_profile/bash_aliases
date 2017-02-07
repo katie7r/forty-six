@@ -25,3 +25,19 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias v="workon"
 alias v.mk="mkvirtualenv"
 alias v.ex="deactivate"
+
+# FUNCTIONS
+
+# git: rebase to root, squashing all commits to a single one
+# with the message given by the user, e.g., $ git-reboot "Starting fresh"
+git-reboot ()
+{
+  git reset $(git commit-tree HEAD^{tree} -m "$1")
+}
+
+# bower: uninstall package, clear cache, and reinstall package (with pkg name
+# or a URL/local filepath), e.g., $ bower-reinstall local-package /path/to/pkg
+bower-reinstall ()
+{
+  bower uninstall "$1" && bower cache clean && bower install "${2:-$1}"
+}
