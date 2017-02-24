@@ -17,8 +17,13 @@
   last = log -1 HEAD
   # More for me
   cb = checkout -b
+  # amend = "!f() { if [ ! -z $1 ]; then MSG='-C HEAD'; else MSG='-m "$1"'; fi; git commit --amend $MSG; }; f"
   amend = commit --amend -C HEAD
+  addmend = "!f() { git add --all && git amend; }; f"
   diffs = diff --staged
+  # NOT WORKING BUT ON THE RIGHT TRACK:
+  # compare = "!f() { if [ ! -z $2 ]; then L='HEAD'; R=$1; else L=$2; R=$1; fi; git log --oneline --graph --first-parent --decorate --left-right $L...$R; }; f"
+  # compare-ff = "!f() { if [ ! -z $2 ]; then L='HEAD'; R=$1; else L=$2; R=$1; fi; git log --oneline --graph --first-parent --decorate --left-right $L..$R; }; f"
   # TODO: try to figure out how to compress these
   # these four commands show commit diff between branches, with "<" and ">" indicating which branch
   diffc = "!f() { git log --oneline --graph --first-parent --decorate --left-right HEAD...$1; }; f" # vs current branch, all commits
