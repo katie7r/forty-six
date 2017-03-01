@@ -17,8 +17,8 @@
   last = log -1 HEAD
   # More for me
   cb = checkout -b
-  amend = "!f() { if [ -z $1 ]; then MSG='-m \"$1\"'; else MSG='-C HEAD'; fi; git commit --amend $MSG; }; f"
-  # amend = commit --amend -C HEAD
+  # amend = "!f() { if [ -z $1 ]; then MSG='-m \"$1\"'; else MSG='-C HEAD'; fi; git commit --amend $MSG; }; f"
+  amend = commit --amend -C HEAD
   addmend = "!f() { git add --all && git amend; }; f"
   diffs = diff --staged
   # NOT WORKING BUT ON THE RIGHT TRACK:
