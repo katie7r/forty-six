@@ -14,6 +14,13 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# cd .. & list current directory
+alias ..='cd ..'
+alias .='ls -A'
+
+# grep but with color!
+alias grep='grep --color=auto'
+
 # Open in chrome
 alias chrome='open -a "Google Chrome"'
 
