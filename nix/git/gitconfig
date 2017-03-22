@@ -37,7 +37,7 @@
   # show changes in latest commit
   latest = diff HEAD~1 HEAD
   # show commits diff b/w remote (first arg) and branch (second arg or default current branch), e.g., $ git distance upstream
-  distance = "!f() { git cherry $1/${2:-$(git rev-parse --abbrev-ref HEAD)} -v --abbrev=7; }; f"
+  distance = "!f() { git --no-pager log --oneline --graph --first-parent --no-decorate --left-right HEAD...$1/${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
   ignore = update-index --assume-unchanged
   unignore = update-index --no-assume-unchanged
   unadd = reset
