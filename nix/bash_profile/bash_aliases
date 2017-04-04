@@ -14,9 +14,10 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# cd .. & list current directory
+# some cds & moar lists
 alias ..='cd ..'
 alias .='ls -A'
+alias code='cd ~/Code/' # for work mac, anyways
 
 # grep but with color!
 alias grep='grep --color=auto'

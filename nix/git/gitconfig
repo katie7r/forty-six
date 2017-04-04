@@ -11,8 +11,8 @@
   st = status
   br = branch
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  yesterday = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --since=yesterday.midnight --until=today.midnight
-  today = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --since=today.midnight
+  yesterday = "!f() { git --no-pager hist --since=yesterday.midnight --until=today.midnight; }; f"
+  today = "!f() { git --no-pager hist --since=today.midnight; }; f"
   type = cat-file -t
   dump = cat-file -p
   unstage = reset HEAD --
@@ -27,17 +27,17 @@
   # compare = "!f() { if [ ! -z $2 ]; then L='HEAD'; R=$1; else L=$2; R=$1; fi; git log --oneline --graph --first-parent --decorate --left-right $L...$R; }; f"
   # compare-ff = "!f() { if [ ! -z $2 ]; then L='HEAD'; R=$1; else L=$2; R=$1; fi; git log --oneline --graph --first-parent --decorate --left-right $L..$R; }; f"
   # TODO: try to figure out how to compress these
-  diff-compare = log --oneline --graph --first-parent --decorate --left-right
+  diff-compare = log --oneline --graph --first-parent --left-right
   # ~ git compare branch {branch} {--all}
   # these four commands show commit diff between branches, with "<" and ">" indicating which branch
-  diffc = "!f() { git diff-compare HEAD...$1; }; f" # vs current branch, all commits
-  diffc- = "!f() { git diff-compare HEAD..$1; }; f" # vs current branch, new commits
-  diffcc = "!f() { git diff-compare $1...$2; }; f" # vs specified branch, all commits
-  diffcc- = "!f() { git diff-compare $1..$2; }; f" # vs specified branch, new commits
+  diffc = "!f() { git diff-compare --decorate HEAD...$1; }; f" # vs current branch, all commits
+  diffc- = "!f() { git diff-compare --decorate HEAD..$1; }; f" # vs current branch, new commits
+  diffcc = "!f() { git diff-compare --decorate $1...$2; }; f" # vs specified branch, all commits
+  diffcc- = "!f() { git diff-compare --decorate $1..$2; }; f" # vs specified branch, new commits
   # show changes in latest commit
   latest = diff HEAD~1 HEAD
   # show commits diff b/w remote (first arg) and branch (second arg or default current branch), e.g., $ git distance upstream
-  distance = "!f() { git --no-pager log --oneline --graph --first-parent --no-decorate --left-right HEAD...$1/${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+  distance = "!f() { git --no-pager diff-compare --no-decorate HEAD...$1/${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
   ignore = update-index --assume-unchanged
   unignore = update-index --no-assume-unchanged
   unadd = reset
