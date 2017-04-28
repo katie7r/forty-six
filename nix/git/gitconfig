@@ -16,7 +16,8 @@
   type = cat-file -t
   dump = cat-file -p
   unstage = reset HEAD --
-  last = log -1 HEAD
+  # last = log -1 HEAD
+  last = "!f() { git --no-pager log -1 HEAD; }; f" 
   # More for me
   cb = checkout -b
   # amend = "!f() { if [ -z $1 ]; then MSG='-m \"$1\"'; else MSG='-C HEAD'; fi; git commit --amend $MSG; }; f"
@@ -29,6 +30,7 @@
   # TODO: try to figure out how to compress these
   diff-compare = log --oneline --graph --first-parent --left-right
   # ~ git compare branch {branch} {--all}
+  # git compare v git compare-with (if forced to two commands)?
   # these four commands show commit diff between branches, with "<" and ">" indicating which branch
   diffc = "!f() { git diff-compare --decorate HEAD...$1; }; f" # vs current branch, all commits
   diffc- = "!f() { git diff-compare --decorate HEAD..$1; }; f" # vs current branch, new commits
