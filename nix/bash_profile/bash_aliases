@@ -17,7 +17,6 @@ alias l='ls -CF'
 # some cds & moar lists
 alias ..='cd ..'
 alias .='ls -A'
-alias code='cd ~/Code/' # for work mac, anyways
 
 # grep but with color!
 alias grep='grep --color=auto'
@@ -35,6 +34,13 @@ alias v.mk="mkvirtualenv"
 alias v.ex="deactivate"
 
 # FUNCTIONS
+
+# cd into ~/Code/ with optional arg for further delving
+code ()
+{
+  # TODO tab/autocomplete for dirs?
+  cd ~/Code/"${1}"
+}
 
 # git: rebase to root, squashing all commits to a single one
 # with the message given by the user, e.g., $ git-reboot "Starting fresh"
