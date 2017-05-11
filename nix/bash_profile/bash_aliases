@@ -42,11 +42,10 @@ code ()
   cd ~/Code/"${1}"
 }
 
-# git: rebase to root, squashing all commits to a single one
-# with the message given by the user, e.g., $ git-reboot "Starting fresh"
-git-reboot ()
+# find the processes running on the specified port
+portcullis ()
 {
-  git reset $(git commit-tree HEAD^{tree} -m "$1")
+  lsof -i tcp:"$1"
 }
 
 # bower: uninstall package, clear cache, and reinstall package (with pkg name
@@ -54,4 +53,11 @@ git-reboot ()
 bower-reinstall ()
 {
   bower uninstall "$1" && bower cache clean && bower install "${2:-$1}"
+}
+
+# git: rebase to root, squashing all commits to a single one
+# with the message given by the user, e.g., $ git-reboot "Starting fresh"
+git-reboot ()
+{
+  git reset $(git commit-tree HEAD^{tree} -m "$1")
 }
