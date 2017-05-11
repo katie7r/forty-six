@@ -42,6 +42,14 @@ code ()
   cd ~/Code/"${1}"
 }
 
+# shortcut my preferred grep flags, plus switch arg order (dir before pattern),
+# e.g., for multiple searches in the same place quickly/easily
+grepper ()
+{
+  # p.s. grepper is one final "g" away from being a palindrome, which is fun.
+  grep -nri "$2" "$1"
+}
+
 # find the processes running on the specified port
 portcullis ()
 {
