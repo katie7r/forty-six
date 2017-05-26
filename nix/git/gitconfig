@@ -11,19 +11,22 @@
   st = status
   br = branch
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  yesterday = "!f() { git --no-pager hist --since=yesterday.midnight --until=today.midnight; }; f"
-  today = "!f() { git --no-pager hist --since=today.midnight; }; f"
+  yesterday = "!f() { git --no-pager hist --since=yesterday.midnight --until=today.midnight; printf '\n'; }; f"
+  today = "!f() { git --no-pager hist --since=today.midnight; printf '\n'; }; f"
   type = cat-file -t
   dump = cat-file -p
   unstage = reset HEAD --
   # last = log -1 HEAD
-  last = "!f() { git --no-pager log -1 HEAD; }; f" 
+  last = "!f() { git --no-pager log -1 HEAD; }; f"
   # More for me
   cb = checkout -b
   # amend = "!f() { if [ -z $1 ]; then MSG='-m \"$1\"'; else MSG='-C HEAD'; fi; git commit --amend $MSG; }; f"
   amend = commit --amend -C HEAD
   addmend = "!f() { git add --all && git amend; }; f"
   diffs = diff --staged
+  diff-for = "!f() { git diff $1^ $1 $2; }; f" # or just "git show <commit>"
+  # show changes in latest commit
+  latest = diff HEAD~1 HEAD
   # NOT WORKING BUT ON THE RIGHT TRACK:
   # compare = "!f() { if [ ! -z $2 ]; then L='HEAD'; R=$1; else L=$2; R=$1; fi; git log --oneline --graph --first-parent --decorate --left-right $L...$R; }; f"
   # compare-ff = "!f() { if [ ! -z $2 ]; then L='HEAD'; R=$1; else L=$2; R=$1; fi; git log --oneline --graph --first-parent --decorate --left-right $L..$R; }; f"
@@ -36,8 +39,6 @@
   diffc- = "!f() { git diff-compare --decorate HEAD..$1; }; f" # vs current branch, new commits
   diffcc = "!f() { git diff-compare --decorate $1...$2; }; f" # vs specified branch, all commits
   diffcc- = "!f() { git diff-compare --decorate $1..$2; }; f" # vs specified branch, new commits
-  # show changes in latest commit
-  latest = diff HEAD~1 HEAD
   # show commits diff b/w remote (first arg) and branch (second arg or default current branch), e.g., $ git distance upstream
   distance = "!f() { git --no-pager diff-compare --no-decorate HEAD...$1/${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
   ignore = update-index --assume-unchanged
