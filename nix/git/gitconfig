@@ -46,7 +46,7 @@
   diffcc = "!f() { git diff-compare --decorate $1...$2; }; f" # vs specified branch, all commits
   diffcc- = "!f() { git diff-compare --decorate $1..$2; }; f" # vs specified branch, new commits
   # show commits diff b/w remote (first arg) and branch (second arg or default current branch), e.g., $ git distance upstream
-  distance = "!f() { git --no-pager diff-compare --no-decorate HEAD...$1/${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+  distance = "!f() { git --no-pager diff-compare --no-decorate HEAD...${1:-'origin'}/${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
   # Staging management
   ignore = update-index --assume-unchanged
   unignore = update-index --no-assume-unchanged
