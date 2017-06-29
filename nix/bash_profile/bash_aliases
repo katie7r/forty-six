@@ -17,9 +17,13 @@ alias l='ls -CF'
 # some cds & moar lists
 alias ..='cd ..'
 alias .='ls -A'
+alias 46='code \&c/46' # work mac, at least
 
 # grep but with color!
 alias grep='grep --color=auto'
+# you're so vain / you probably think this grep is about you
+# TODO move to git instead (my only use case, output adjustments, dynamic user?)
+alias me='grep -i katie'
 
 # Open in chrome
 alias chrome='open -a "Google Chrome"'
@@ -29,9 +33,9 @@ alias chrome='open -a "Google Chrome"'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Virtalenv(wrapper)
-alias v="workon"
-alias v.mk="mkvirtualenv"
-alias v.ex="deactivate"
+alias v='workon'
+alias v.mk='mkvirtualenv'
+alias v.ex='deactivate'
 
 # FUNCTIONS
 
@@ -46,6 +50,14 @@ code ()
 # e.g., for multiple searches in the same place quickly/easily
 grepper ()
 {
+  # # wildcard with grep
+  # if [[ $1 == *"*"* ]]
+  # then
+  #   $GREPPATH="--include=\"$1\" ."
+  # else
+  #   $GREPPATH="$1"
+  # fi
+
   # p.s. grepper is one final "g" away from being a palindrome, which is fun.
   grep -nri "$2" "$1"
 }
@@ -63,9 +75,10 @@ bower-reinstall ()
   bower uninstall "$1" && bower cache clean && bower install "${2:-$1}"
 }
 
-# git: rebase to root, squashing all commits to a single one
-# with the message given by the user, e.g., $ git-reboot "Starting fresh"
-git-reboot ()
-{
-  git reset $(git commit-tree HEAD^{tree} -m "$1")
-}
+# NOTE moving to bash script git alias
+# # git: rebase to root, squashing all commits to a single one
+# # with the message given by the user, e.g., $ git-reboot "Starting fresh"
+# git-reboot ()
+# {
+#   git reset $(git commit-tree HEAD^{tree} -m "$1")
+# }

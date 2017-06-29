@@ -10,29 +10,35 @@
   ci = commit
   st = status
   br = branch
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  yesterday = "!f() { git --no-pager hist --since=yesterday.midnight --until=today.midnight; printf '\n'; }; f"
-  today = "!f() { git --no-pager hist --since=today.midnight; printf '\n'; }; f"
   type = cat-file -t
   dump = cat-file -p
   unstage = reset HEAD --
-  # last = log -1 HEAD
-  last = "!f() { git --no-pager log -1 HEAD; }; f"
-  # More for me
+  # Basics
   cb = checkout -b
+  cp = cherry-pick
+  # History
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  yesterday = "!f() { git --no-pager hist --since=yesterday.midnight --until=today.midnight; printf '\n'; }; f"
+  today = "!f() { git --no-pager hist --since=today.midnight; printf '\n'; }; f"
+  week = "!f() { git --no-pager hist --since='6 days ago'; printf '\n'; }; f" # e.g., `$ git week` on Friday will show from Saturday onward
+
+  # show summary for most recent commit
+  # last = "!f() { git --no-pager log -1 HEAD; }; f" # TODO optional branch arg
+  last = "!f() { git --no-pager log -1 ${1:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+  # show changes for most recent commit
+  latest = diff HEAD~1 HEAD
   # amend = "!f() { if [ -z $1 ]; then MSG='-m \"$1\"'; else MSG='-C HEAD'; fi; git commit --amend $MSG; }; f"
   amend = commit --amend -C HEAD
   addmend = "!f() { git add --all && git amend; }; f"
+  # diff/compare
   diffs = diff --staged
   diff-for = "!f() { git diff $1^ $1 $2; }; f" # or just "git show <commit>"
-  # show changes in latest commit
-  latest = diff HEAD~1 HEAD
   # NOT WORKING BUT ON THE RIGHT TRACK:
   # compare = "!f() { if [ ! -z $2 ]; then L='HEAD'; R=$1; else L=$2; R=$1; fi; git log --oneline --graph --first-parent --decorate --left-right $L...$R; }; f"
   # compare-ff = "!f() { if [ ! -z $2 ]; then L='HEAD'; R=$1; else L=$2; R=$1; fi; git log --oneline --graph --first-parent --decorate --left-right $L..$R; }; f"
   # TODO: try to figure out how to compress these
   diff-compare = log --oneline --graph --first-parent --left-right
-  # ~ git compare branch {branch} {--all}
+  # ~ git compare branch {branch} {--ff(/new/since)|--all}
   # git compare v git compare-with (if forced to two commands)?
   # these four commands show commit diff between branches, with "<" and ">" indicating which branch
   diffc = "!f() { git diff-compare --decorate HEAD...$1; }; f" # vs current branch, all commits
@@ -41,11 +47,14 @@
   diffcc- = "!f() { git diff-compare --decorate $1..$2; }; f" # vs specified branch, new commits
   # show commits diff b/w remote (first arg) and branch (second arg or default current branch), e.g., $ git distance upstream
   distance = "!f() { git --no-pager diff-compare --no-decorate HEAD...$1/${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+  # Staging management
   ignore = update-index --assume-unchanged
   unignore = update-index --no-assume-unchanged
   unadd = reset
   uncommit = reset --soft HEAD^
   rollback = reset --hard
+  # rebase to root, squashing all commits to a single one with the message given by the user, e.g., `$ git reboot "Starting fresh"`
+  reboot = "!f() { git reset $(git commit-tree HEAD^{tree} -m '$1'); }; f"
   # Provided with example gitconfig
   lol = log --oneline --graph
   co-master = !git checkout master && git submodule foreach git checkout master
