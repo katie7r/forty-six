@@ -22,9 +22,11 @@ alias 46='code \&c/46' # work mac, at least
 alias focus='cd $RECENT_FOCUS'
 
 # grep but with color!
-alias grep='grep --color=auto'
+alias grep='grep --color=always'
+alias grepp='grep -nri' # my std flags
+alias ungrep='grep -v'
 # you're so vain / you probably think this grep is about you
-# TODO move to git instead (my only use case, output adjustments, dynamic user?)
+# TODONE move to git instead (my only use case, output adjustments, dynamic user?)
 alias me='grep -i katie'
 
 # Open in chrome
@@ -61,7 +63,7 @@ grepper ()
   # fi
 
   # p.s. grepper is one final "g" away from being a palindrome, which is fun.
-  grep -nri "$2" "$1"
+  grepp "$2" "$1"
 }
 
 # find the processes running on the specified port
