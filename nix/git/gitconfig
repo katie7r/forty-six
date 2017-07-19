@@ -17,7 +17,10 @@
   cb = checkout -b
   cp = cherry-pick
   # History
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  # # hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  hist = log --pretty=format:\"%C(dim)%h %ad |%Creset %s%d [%an]\" --graph --date=short
+  # # hist = log --pretty=format:\"%C(black)%h %ad |%Creset %s%d [%an]\" --graph --date=short
+  # hist = log --pretty=format:\"%C(black)%h %ad%Creset %C(dim)|%Creset %s%d [%an]\" --graph --date=short
   yesterday = "!f() { git --no-pager hist --since=yesterday.midnight --until=today.midnight $*; printf '\n'; }; f"
   today = "!f() { git --no-pager hist --since=today.midnight $*; printf '\n'; }; f"
   week = "!f() { git --no-pager hist --since='6 days ago' $*; printf '\n'; }; f" # e.g., `$ git week` on Friday will show from Saturday onward

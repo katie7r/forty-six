@@ -18,6 +18,8 @@ alias l='ls -CF'
 alias ..='cd ..'
 alias .='ls -A'
 alias 46='code \&c/46' # work mac, at least
+# cd into whatever code directory is specified as my recent focus
+alias focus='cd $RECENT_FOCUS'
 
 # grep but with color!
 alias grep='grep --color=auto'
