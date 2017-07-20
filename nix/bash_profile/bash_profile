@@ -10,6 +10,7 @@ test -s ~/.alias && . ~/.alias || true
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
+[[ -s "$HOME/.bash_env" ]] && source "$HOME/.bash_env"
 
 # Include GIT auto-completion script if it exists
 # Note: This sort of thing is included in older systems
