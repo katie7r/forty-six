@@ -65,8 +65,11 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # import git prompt
-if [ -f ./.git-prompt.sh ]; then
-  source ./.git-prompt.sh
+# if [ -f ./.git-prompt.sh ]; then
+#   source ./.git-prompt.sh
+# fi
+if [ -f ~/.git-prompt.sh ]; then
+  source ~/.git-prompt.sh
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
@@ -134,13 +137,17 @@ fi
 
 # Virtualenv(wrapper)
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-  VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+  VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
   #VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2.7
   export VIRTUALENVWRAPPER_PYTHON
   export WORKON_HOME=$HOME/.virtualenvs
   export PROJECT_HOME=$HOME/Code
   source /usr/local/bin/virtualenvwrapper.sh
 fi
+
+# Env var config for pipenv
+export PIPENV_SHELL_COMPAT=true
+export PIPENV_VENV_IN_PROJECT=true
 
 # Add RVM to PATH for scripting
 export PATH="$PATH:$HOME/.rvm/bin"

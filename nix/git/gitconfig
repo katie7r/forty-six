@@ -4,7 +4,8 @@
 [color]
   ui = true
 [core]
-  editor = atom
+	editor = vim
+	autocrlf = input
 [alias]
   co = checkout
   ci = commit
@@ -58,6 +59,8 @@
   unadd = reset
   uncommit = reset --soft HEAD^
   rollback = reset --hard
+  # rb = rollback
+  unchange = checkout # e.g., for individual files (I always forget this one)
   # rebase to root, squashing all commits to a single one with the message given by the user, e.g., `$ git reboot "Starting fresh"`
   reboot = "!f() { git reset $(git commit-tree HEAD^{tree} -m '$1'); }; f"
   # Provided with example gitconfig
