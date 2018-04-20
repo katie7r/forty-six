@@ -61,6 +61,9 @@
   rollback = reset --hard
   # rb = rollback
   unchange = checkout # e.g., for individual files (I always forget this one)
+  # WIP (un)add/(un)commit all changes
+  wip = commit --all -m "WIP"
+  unwip = "!f() { if [[ $(git log -1 --pretty=%B) == 'WIP' ]] ; then git uncommit && git unadd; else echo \"Not WIP commit\"; fi }; f"
   # rebase to root, squashing all commits to a single one with the message given by the user, e.g., `$ git reboot "Starting fresh"`
   reboot = "!f() { git reset $(git commit-tree HEAD^{tree} -m '$1'); }; f"
   # Provided with example gitconfig
