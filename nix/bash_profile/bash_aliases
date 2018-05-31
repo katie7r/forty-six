@@ -24,19 +24,26 @@ alias mine='code \&c' # work mac, at least
 # cd into whatever code directory is specified as my recent focus
 alias focus='cd "$RECENT_FOCUS"'
 
+# tmp? tiny-care-terminal
+alias tct='source ~/Code/tiny-care-terminal/config.env && tiny-care-terminal'
+
 # grep but with color!
 alias grep='grep --color=always'
 alias grepp='grep -nri' # my std flags
 alias ungrep='grep -v'
 # alias @@='grep --exclude=\*.min.\*'
-alias @@='grep --exclude=\*.{min.\*,pyc}'
-alias @@@='@@ --exclude=\*/{css,plugins}/\*'
+alias @@='grep --exclude=\*.{min.\*,pyc} --exclude=\*/coverage/'
+alias @@@='@@ --exclude=\*/{css,plugins,log,logs}/\*'
 # alias @='@@ --exclude=\*/{css,js}/\* -nri'
 # alias @='@@ --exclude=\*/{css,plugins}/\* -nri'
 alias @='@@@ -nri'
 
-# Open in chrome
+# Open in Chrome
 alias chrome='open -a "Google Chrome"'
+# Open in Firefox
+alias firefox='open -a "Firefox"'
+# Open in Safari
+alias safari='open -a "Safari"'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -46,6 +53,15 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias v='workon'
 alias v.mk='mkvirtualenv'
 alias v.ex='deactivate'
+alias v.ls='lsvirtualenv'
+
+alias dirtree='tree -v --charset utf-8'
+
+# Pivotal Tracker quick-launch script
+alias tracker='~/Code/cuttlesoft/tracker/tracker.sh'
+
+# Delete all Python migration files in project
+alias rm-migrations='find . -path "*/migrations/*.py*" -not -name "__init__.py" -delete'
 
 # FUNCTIONS
 
@@ -92,3 +108,25 @@ bower-reinstall ()
 # {
 #   git reset $(git commit-tree HEAD^{tree} -m "$1")
 # }
+
+fenestrate ()
+{
+  # TODO skip if already running
+  cd ~/Code/\&c/fenestrate/ && http-server &
+
+  # TODO ! supply args to query params for url (and url var for reuse) for framed to use
+  # TODO ~ more dynamic browser choice
+
+  if [ $# -eq 0 ]
+  then
+    chrome "http://localhost:8080"
+  elif [[ $1 = 'safari' ]]
+  then
+    safari "http://localhost:8080"
+  elif [[ $1 = 'firefox' ]]
+  then
+    firefox "http://localhost:8080"
+  else
+    chrome "http://localhost:8080"
+  fi
+}
