@@ -1,11 +1,11 @@
 [user]
-  email = katie@cuttlesoft.com
+	email = katie.k7r@gmail.com
   name = Katie Russ
 [color]
   ui = true
 [core]
-	editor = vim
-	autocrlf = input
+  editor = vim
+  autocrlf = input
 [alias]
   co = checkout
   ci = commit
@@ -17,6 +17,8 @@
   # Basics
   cb = checkout -b
   cp = cherry-pick
+  # # Fetch and merge (e.g., local merge of PR from another remote)
+  # fetch-merge = "!f() { git fetch $1 && git merge FETCH_HEAD; }; f"
   # History
   # # hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   hist = log --pretty=format:\"%C(dim)%h %ad |%Creset %s%d [%an]\" --graph --date=short
@@ -26,8 +28,11 @@
   today = "!f() { git --no-pager hist --since=today.midnight $*; printf '\n'; }; f"
   week = "!f() { git --no-pager hist --since='6 days ago' $*; printf '\n'; }; f" # e.g., `$ git week` on Friday will show from Saturday onward
   month = "!f() { git --no-pager hist --since='1 month ago' $*; printf '\n'; }; f"
+  recent = "!f() { git --no-pager hist -${1:-'10'}; printf '\n'; }; f"
   # show summary for most recent commit
-  last = "!f() { git --no-pager log -1 ${1:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+  # last = "!f() { git --no-pager log -1 ${1:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+  # TODO: default '1' if no $1 or if $1 is not int (e.g,, `git last master`, so don't have to `git last 1 master`)
+  last = "!f() { git --no-pager log -${1:-'1'} ${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
   # show changes for most recent commit
   latest = diff HEAD~1 HEAD
   # just my commits
@@ -66,6 +71,8 @@
   unwip = "!f() { if [[ $(git log -1 --pretty=%B) == 'WIP' ]] ; then git uncommit && git unadd; else echo \"Not WIP commit\"; fi }; f"
   # rebase to root, squashing all commits to a single one with the message given by the user, e.g., `$ git reboot "Starting fresh"`
   reboot = "!f() { git reset $(git commit-tree HEAD^{tree} -m '$1'); }; f"
+  # for funsies
+  ass = "!f() { echo \"Hey, now - there's no need for name calling.\"; }; f"
   # Provided with example gitconfig
   lol = log --oneline --graph
   co-master = !git checkout master && git submodule foreach git checkout master
