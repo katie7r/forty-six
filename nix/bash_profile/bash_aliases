@@ -45,6 +45,11 @@ alias firefox='open -a "Firefox"'
 # Open in Safari
 alias safari='open -a "Safari"'
 
+# open file in VS Code, since I aliased `code` before using VS Code and its
+# included `code` command (and can never remember if it's `vs` or `vscode`)
+alias vscode='open -a "Visual Studio Code"'
+alias vs='vscode'
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -57,11 +62,24 @@ alias v.ls='lsvirtualenv'
 
 alias dirtree='tree -v --charset utf-8'
 
+# bin/rails for local commands
+alias .rails='bin/rails'
+alias .r='.rails'
+
+alias cop='rubocop | grep -i ${1}'
+
+# alias bk='black ${1:"."} -S --exclude="migrations"'
+alias bk='black ${1:"."} --exclude="migrations"'
+
 # Pivotal Tracker quick-launch script
 alias tracker='~/Code/cuttlesoft/tracker/tracker.sh'
 
+# ngrok without needing to cd to it
+alias ngrok='~/Code/xtra/ngrok'
+
 # Delete all Python migration files in project
 alias rm-migrations='find . -path "*/migrations/*.py*" -not -name "__init__.py" -delete'
+
 
 # FUNCTIONS
 
@@ -129,4 +147,15 @@ fenestrate ()
   else
     chrome "http://localhost:8080"
   fi
+}
+
+# if `.r` alias is called with `dev`, do the annoying db:env:set
+# thing for development
+.r () {
+    if [[ $@ == "dev" ]]; then
+        command bin/rails db:environment:set RAILS_ENV=development
+
+    else
+        command bin/rails "$@"
+    fi
 }
