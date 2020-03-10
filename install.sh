@@ -1,0 +1,63 @@
+#! /bin/bash
+
+# # # # # # # # # # # # # # # # # # # #
+#               INSTALL               #
+# # # # # # # # # # # # # # # # # # # #
+# Based on nix/bootstrap.sh from      #
+# https://github.com/jeffaco/dotfiles #
+# # # # # # # # # # # # # # # # # # # #
+
+case $0 in
+    /*|~*)
+        RUN_FROM="`dirname $0`"
+        ;;
+    *)
+        PWD="`pwd`"
+        RUN_FROM="`dirname $PWD/$0`"
+        ;;
+esac
+
+DOTFILES="`(cd \"$RUN_FROM\"; pwd -P)`"
+
+for d in $DOTFILES/dotfiles/*; do
+    # skip any non-directories directly in /dotfiles/
+    [ ! -d $d ] && continue
+
+    for f in $d/*; do
+        # skip any nested directories
+        [ -d $f ] && continue
+
+        # e.g., gitconfig -> ~/.gitconfig
+        # e.g., shell.sh -> ~/.shell
+        FILE=`basename -s .sh $f`
+        LINK=$HOME/.$FILE
+
+        # ignore files prefixed with underscore
+        [[ $FILE == _* ]] && continue
+
+        if [ -f $LINK -o -h $LINK ]; then
+            echo "Replacing: $LINK"
+            # rm $LINK
+        else
+            echo "Linking: $LINK"
+        fi
+
+        ln -s $f $LINK
+    done
+done
+
+# # # # # # # # # # # # # # # # # # # #
+#           GIT COMPLETION            #
+# # # # # # # # # # # # # # # # # # # #
+
+if [ ! -f $HOME/.git-completion.bash ]; then
+    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o $HOME/.git-completion.bash
+fi
+
+if [ ! -f $HOME/.git-completion.zsh ]; then
+    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o $HOME/.git-completion.zsh
+fi
+
+if [ ! -f $HOME/.git-prompt.sh ]; then
+    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o $HOME/.git-prompt.sh
+fi
