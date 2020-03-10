@@ -84,9 +84,9 @@ if [ -f /opt/git/bin/git ]; then
     unset SSH_ASKPASS
 fi
 
-if [ -f ./.git-completion.bash ]; then
-  source ~/.git-completion.bash
-fi
+# if [ -f ./.git-completion.bash ]; then
+#   source ~/.git-completion.bash
+# fi
 
 # if [ -f ~/Code/ ]; then
 #     export PATH=~/Code:$PATH

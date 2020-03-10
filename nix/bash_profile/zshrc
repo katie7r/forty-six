@@ -16,7 +16,8 @@ source $ZSH/oh-my-zsh.sh
 
 # TODO tmp
 source ~/Code/\&c/shell/zsh-git-prompt/zshrc.sh
-PROMPT='%B%m%~%b$(git_super_status) %# '
+# PROMPT='%B%m%~%b$(git_super_status) %# '
+# PS1=$PROMPT
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = #
 
@@ -25,6 +26,12 @@ unsetopt share_history
 source ~/.bash_aliases
 source ~/.bash_profile
 
-export PIPENV_SHELL_COMPAT=1
-export PIPENV_MAX_DEPTH=6
-source $(pew shell_config)
+# export PIPENV_SHELL_COMPAT=1
+# export PIPENV_MAX_DEPTH=6
+# source $(pew shell_config)
+
+prompt_context() {
+  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    # prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+  fi
+}
