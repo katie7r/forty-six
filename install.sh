@@ -61,3 +61,15 @@ fi
 if [ ! -f $HOME/.git-prompt.sh ]; then
     curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o $HOME/.git-prompt.sh
 fi
+
+# # # # # # # # # # # # # # # # # # # #
+#             ENV CONFIG              #
+# # # # # # # # # # # # # # # # # # # #
+
+if [ -f $DOTFILES/.env ]; then
+    source $DOTFILES/.env
+
+    if [ -n "$EMAIL" ]; then
+        git config --global user.email $EMAIL
+    fi
+fi
