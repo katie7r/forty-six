@@ -137,8 +137,8 @@ fi
 
 # Virtualenv(wrapper)
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-  VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
-  #VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2.7
+  # VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+  # VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
   export VIRTUALENVWRAPPER_PYTHON
   export WORKON_HOME=$HOME/.virtualenvs
   export PROJECT_HOME=$HOME/Code
@@ -160,12 +160,10 @@ export NVM_DIR="/Users/katieruss/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 # Overwrite hg/git email address for work account
-if [ $USER == 'cuttlesoft' ]; then
-  export EMAIL="katie@cuttlesoft.com"
-  `git config --global user.email "$EMAIL"`
-else
+if [ -z $EMAIL ]; then
   export EMAIL="katie.k7r@gmail.com"
 fi
+`git config --global user.email "$EMAIL"`
 
 if [ -f ./.git-completion.bash ]; then
   source ~/.git-completion.bash

@@ -64,7 +64,7 @@ alias dirtree='tree -v --charset utf-8'
 
 # bin/rails for local commands
 alias .rails='bin/rails'
-alias .r='.rails'
+# alias .r='.rails'
 
 alias cop='rubocop | grep -i ${1}'
 
@@ -79,7 +79,6 @@ alias ngrok='~/Code/xtra/ngrok'
 
 # Delete all Python migration files in project
 alias rm-migrations='find . -path "*/migrations/*.py*" -not -name "__init__.py" -delete'
-
 
 # FUNCTIONS
 
@@ -149,9 +148,48 @@ fenestrate ()
   fi
 }
 
+# Stop trying to run flake8 with the wrong version outside of a virtual env
+alias flake8="echo \"If you meant to run flake8 outside of a virtual environment, use 'vlake8' instead.\""
+alias vlake8="command flake8"
+# flake8 ()
+# {
+#   # # if [ $# -eq 0 ]
+#   # if [ "$1" = "--wild" ]
+#   # then
+#   #   flake8 "${@:2}"
+#   # else
+#   #   echo "Did you mean to run flake8 in a virtual environmment?"
+#   #   echo "Outside of a virtual environment, pass '--wild' to run."
+#   # fi
+
+#   run_outside=false
+
+#   if [ $# -eq 0 ]
+#   then
+#     echo "Did you mean to run flake8 in a virtual environmment?"
+#     echo "Outside of a virtual environment, run with 'flake8 g' instead."
+#   fi
+
+#   while [ ! $# -eq 0 ]
+#   do
+#     case "$1" in
+#       g)
+#         run_outside=true
+#         ;;
+#     esac
+#     shift
+#   done
+
+#   if [ "$run_outside" = true ]
+#   then
+#     flake8 "$@"
+#   fi
+# }
+
 # if `.r` alias is called with `dev`, do the annoying db:env:set
 # thing for development
-.r () {
+.r ()
+{
     if [[ $@ == "dev" ]]; then
         command bin/rails db:environment:set RAILS_ENV=development
 
@@ -159,3 +197,30 @@ fenestrate ()
         command bin/rails "$@"
     fi
 }
+
+# iTerm scripts
+# TODO if aliases are here, so too should be scripts
+term ()
+{
+  cmd="osascript "
+
+  if [ "$2" = "start" ]; then
+    scpt="start"
+  elif [ "$2" = "stop" ]; then
+    # TODO stop processes? mojave forbids keystrokes
+    scpt="stop"
+  else
+    scpt="setup"
+  fi
+
+  eval $cmd "~/Code/$1/term-${scpt}.scpt"
+}
+
+alias beterra="term beterra $1"
+alias binja="term vector35 $1"
+alias dropworks="term dropworks $1"
+alias hak="term gnomishhat $1"
+alias jombler="term ovad/-jombler $1"
+alias vtlh="term zimmerman $1"
+
+alias bs="RAILS_APP_DIR='/Users/katieruss/Code/beterra/debrief' .r s -p 3000"

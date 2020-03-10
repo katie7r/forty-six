@@ -84,6 +84,10 @@ if [ -f /opt/git/bin/git ]; then
     unset SSH_ASKPASS
 fi
 
+if [ -f ./.git-completion.bash ]; then
+  source ~/.git-completion.bash
+fi
+
 # if [ -f ~/Code/ ]; then
 #     export PATH=~/Code:$PATH
 # fi
@@ -94,8 +98,34 @@ if [ -d ~/.rbenv ]; then
     eval "$(rbenv init -)"
 fi
 
+# This loads nvm
+# export NVM_DIR="/home/me/.nvm"
+export NVM_DIR="/Users/katieruss/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+# Virtualenv(wrapper)
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+  VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+  # VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+  export VIRTUALENVWRAPPER_PYTHON
+  export WORKON_HOME=$HOME/.virtualenvs
+  export PROJECT_HOME=$HOME/Code
+  source /usr/local/bin/virtualenvwrapper.sh
+fi
 
 # export PATH=.:~/bin:${PATH}
+
+# # Alias definitions.
+# # You may want to put all your additions into a separate file like
+# # ~/.bash_aliases, instead of adding them here directly.
+# # See /usr/share/doc/bash-doc/examples in the bash-doc package.
+#
+# if [ -f ./.bash_aliases ]; then
+#     . ./.bash_aliases
+# fi
+
+export PATH="$PATH:/usr/local/mysql/bin"
+export DYLD_LIBRARY_PATH="/usr/local/mysql/lib:$DYLD_LIBRARY_PATH"
 
 #
 # Functions
@@ -130,3 +160,8 @@ global_find()
   find $2 -type f | xargs grep -i "$1"
     fi
 }
+
+
+# Default to using Cuttlesoft organization for Heroku
+# TODO: make environmental
+# export HEROKU_ORGANIZATION=cuttlesoft
