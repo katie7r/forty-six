@@ -20,28 +20,32 @@ ZSH_THEME='agnoster'
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git osx docker docker-compose heroku npm nvm postgres python)
+plugins=(
+    git git-prompt
+    docker docker-compose
+    heroku
+    npm nvm
+    osx
+    postgres
+    python
+)
 
 source $ZSH/oh-my-zsh.sh
 
-# TODO tmp
-# source $CODE/\&c/shell/zsh-git-prompt/zshrc.sh
-# PROMPT='%B%m%~%b$(git_super_status) %# '
-# PS1=$PROMPT
-
-# = = = = = = = = = = = = = = = = = = = = = = = = = = = = #
-
 unsetopt share_history
 
-# source $HOME/.bash_aliases
-# source $HOME/.bash_profile
+# compatibility # # # # # # # # # # # #
 
 # export PIPENV_SHELL_COMPAT=1
 # export PIPENV_MAX_DEPTH=6
 # source $(pew shell_config)
 
-# prompt_context() {
-#   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-#     # prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
-#   fi
-# }
+# prompt  # # # # # # # # # # # # # # #
+
+prompt_context() {
+  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    # intentionally empty
+  fi
+}
+
+# TODO: git-prompt ; ~ prompt_git(){ git_super_status }

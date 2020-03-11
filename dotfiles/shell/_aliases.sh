@@ -4,7 +4,7 @@
 alias ..='cd ..'
 alias 46='cd "$DOTFILES"'
 alias code='cd "$CODE"'
-alias focus='cd "$CURRENT"'
+alias current='cd "$CURRENT"'
 
 # ls  # # # # # # # # # # # # # # # # #
 
@@ -27,18 +27,16 @@ fi
 
 # grep but with color!
 alias grep='grep --color=always'
-alias grepp='grep -nri' # my std flags
+
 alias ungrep='grep -v'
-# alias @@='grep --exclude=\*.min.\*'
-alias @@='grep --exclude=\*.{min.\*,pyc} --exclude=\*/coverage/'
-alias @@@='@@ --exclude=\*/{css,plugins,log,logs}/\*'
-# alias @='@@ --exclude=\*/{css,js}/\* -nri'
-# alias @='@@ --exclude=\*/{css,plugins}/\* -nri'
-alias @='@@@ -nri'
+alias grep-min='grep --exclude=\*.min.\*'
+alias grep-pyc='grep --exclude=\*.{min.\*,pyc} --exclude=\*/coverage/'
+alias grep-less='grep-pyc --exclude=\*/{css,plugins,log,logs}/\*'
+alias @='grep-less -nri'
 
 # shortcut my preferred grep flags, plus switch arg order (dir before pattern),
 # e.g., for multiple searches in the same place quickly/easily
-grepper ()
+gerp ()
 {
   # # wildcard with grep
   # if [[ $1 == *"*"* ]]
@@ -48,21 +46,19 @@ grepper ()
   #   $GREPPATH="$1"
   # fi
 
-  # p.s. grepper is one final "g" away from being a palindrome, which is fun.
-  grepp "$2" "$1"
+  # p.s. this function was originally called `grepper`,
+  # which is one final "g" away from being a palindrome... which is fun.
+  grep -nri "$2" "$1"
 }
 
 # open  # # # # # # # # # # # # # # # #
 
-# Open in Chrome
 alias chrome='open -a "Google Chrome"'
-# Open in Firefox
 alias firefox='open -a "Firefox"'
-# Open in Safari
 alias safari='open -a "Safari"'
 
-# open file in VS Code, since I aliased `code` before using VS Code and its
-# included `code` command (and can never remember if it's `vs` or `vscode`)
+# open file in VS Code, since I already have `code` aliased
+# (and can never remember whether it's `vs` or `vscode`)
 alias vscode='open -a "Visual Studio Code"'
 alias vs='vscode'
 

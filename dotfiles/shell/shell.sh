@@ -31,11 +31,13 @@ fi
 
 # &c  # # # # # # # # # # # # # # # # #
 
+# git
 if [ -f /opt/git/bin/git ]; then
     export PATH=/opt/git/bin:${PATH}
     unset SSH_ASKPASS
 fi
 
+# mysql
 export PATH="$PATH:/usr/local/mysql/bin"
 export DYLD_LIBRARY_PATH="/usr/local/mysql/lib:$DYLD_LIBRARY_PATH"
 
