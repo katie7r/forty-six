@@ -54,8 +54,9 @@ if [ ! -f $HOME/.git-completion.bash ]; then
     curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o $HOME/.git-completion.bash
 fi
 
-if [ ! -f $HOME/.git-completion.zsh ]; then
-    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o $HOME/.git-completion.zsh
+if [ ! -d $HOME/.zsh ]; then mkdir $HOME/.zsh; fi
+if [ ! -f $HOME/.zsh/.git-completion.zsh ]; then
+    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o $HOME/.zsh/.git-completion.zsh
 fi
 
 if [ ! -f $HOME/.git-prompt.sh ]; then
