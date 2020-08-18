@@ -15,6 +15,8 @@ fi
 
 # linting + formatting  # # # # # # # #
 
+alias autocop='rubocop -a --only'
+alias atcop='rubocop --only'
 alias cop='rubocop | grep -i ${1}'
 
 # rails # # # # # # # # # # # # # # # #

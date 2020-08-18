@@ -5,6 +5,7 @@
 [ -f "$HOME/.git-completion.zsh" ] && source "$HOME/.git-completion.zsh"
 
 fpath=(~/.zsh $fpath)
+fpath+=~/.zfunc
 
 # original zshrc  # # # # # # # # # # #
 

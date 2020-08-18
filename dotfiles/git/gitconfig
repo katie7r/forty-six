@@ -10,9 +10,10 @@
   co = checkout
   ci = commit
   st = status
-  br = branch
+  br = "!git --no-pager branch" # branch
   cb = checkout -b
   cp = cherry-pick
+  up = "!f() { git remote update origin && git pull origin ${1:-'master'}; }; f"
 
   # ADDING/COMMITTING # # # # # # # # #
 
@@ -25,7 +26,7 @@
   unignore = update-index --no-assume-unchanged
 
   # WIP (un)add/(un)commit all changes
-  wip = commit --all -m "WIP"
+  wip = commit --all -m "WIP" --no-verify
   unwip = "!f() { if [[ $(git log -1 --pretty=%B) == 'WIP' ]] ; then git uncommit && git unadd; else echo \"Not WIP commit\"; fi }; f"
 
   # DIFFS/COMPARISONS # # # # # # # # #
@@ -68,6 +69,9 @@
   # author-email = "!f() { git re-author $GIT_AUTHOR_EMAIL $1 $2 && git re-author $GIT_COMMITTER_EMAIL $1 $2; }; f"
 
   # MISCELLANEOUS # # # # # # # # # # #
+
+  # use subtree commands (add, pull) with defaults flags + args
+  sub = "!f() { git subtree $1 --prefix $2 $3 master --squash; }; f"
 
   # use instead of push -f to ensure --force-with-lease
   force = push --force-with-lease
