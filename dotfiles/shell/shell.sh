@@ -1,4 +1,5 @@
-DOTFILES_SHELL="$(dirname "$(readlink -f -- "$0")")"
+# DOTFILES_SHELL="$(dirname "$(readlink -f -- "$0")")"
+DOTFILES_SHELL="$(dirname "$(readlink "$0")")"
 DOTFILES="$(dirname $(dirname "$DOTFILES_SHELL"))"
 
 if [ "${SAVED_PATH:-==Unset==}" = "==Unset==" ]; then
