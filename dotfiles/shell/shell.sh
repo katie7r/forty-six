@@ -40,5 +40,9 @@ fi
 
 # mysql
 export PATH="$PATH:/usr/local/mysql/bin"
-export DYLD_LIBRARY_PATH="/usr/local/mysql/lib:$DYLD_LIBRARY_PATH"
+# export DYLD_LIBRARY_PATH="/usr/local/mysql/lib:$DYLD_LIBRARY_PATH"
 
+# # openssl
+# export LDFLAGS="-L/usr/bin/openssl/lib"
+# export CPPFLAGS="-I/usr/bin/openssl/include"
+# export PKG_CONFIG_PATH="/usr/bin/openssl/lib/pkgconfig"

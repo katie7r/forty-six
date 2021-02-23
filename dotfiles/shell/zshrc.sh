@@ -29,6 +29,9 @@ plugins=(
     osx
     postgres
     python
+    # pipenv
+    # poetry
+    # virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -43,10 +46,50 @@ unsetopt share_history
 
 # prompt  # # # # # # # # # # # # # # #
 
+# export VIRTUAL_ENV_DISABLE_PROMPT=
+# function virtualenv_info {
+#   [ $VIRTUAL_ENV ] && echo '(' `basename $VIRTUAL_ENV`') '
+# }
+# PROMPT+='%{$fg[green]%}$(virtualenv_prompt_info)%{$reset_color%}%'
+
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     # intentionally empty
   fi
 }
+
+prompt_virtualenv() {
+
+# }
+
+# prompt_pipenv_pyenv() {
+  # if [[ -z $(pipenv --venv) || $(pipenv --venv) != "$(echo ~)/.venv" ]]; then
+  if [[ ! $(pyenv version) =~ ^"3.9.1" ]]; then
+    if [[ -n $PYENV_SHELL ]]; then
+      local version
+      version=${(@)$(pyenv version)[1]}
+      if [[ $version != system ]]; then
+        prompt_segment green black "$version"
+      fi
+    fi
+  fi
+}
+
+# build_prompt() {
+#   RETVAL=$?
+#   prompt_status
+#   prompt_virtualenv
+#   # prompt_pipenv_pyenv
+#   prompt_context
+#   prompt_dir
+#   prompt_git
+#   prompt_bzr
+#   prompt_hg
+#   prompt_end
+# }
+
+# PROMPT='%{%f%b%k%}$(build_prompt) '
+
+# export AGNOSTER_RIGHT_PROMPT_ELEMENTS=(status virtualenv)
 
 # TODO: git-prompt ; ~ prompt_git(){ git_super_status }
