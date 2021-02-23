@@ -25,6 +25,12 @@
   ignore = update-index --assume-unchanged
   unignore = update-index --no-assume-unchanged
 
+  unstash = stash apply
+
+  # NOTE: second arg can be either a commit hash or omitted (to include all commits from first arg)
+  cherries-pick = "!f() { git cp $1^..${2:-$(git commit-from-branch $1)}; }; f"
+  cps = cherries-pick
+
   # WIP (un)add/(un)commit all changes
   wip = commit --all -m "WIP" --no-verify
   unwip = "!f() { if [[ $(git log -1 --pretty=%B) == 'WIP' ]] ; then git uncommit && git unadd; else echo \"Not WIP commit\"; fi }; f"
@@ -69,6 +75,9 @@
   # author-email = "!f() { git re-author $GIT_AUTHOR_EMAIL $1 $2 && git re-author $GIT_COMMITTER_EMAIL $1 $2; }; f"
 
   # MISCELLANEOUS # # # # # # # # # # #
+
+  # get the branch name for a commit (for cherry-picking ranges from one commit to the end, mostly)
+  commit-from-branch = "!f() { CFB=$(git name-rev --name-only $1); echo ${CFB%~*}; }; f"
 
   # use subtree commands (add, pull) with defaults flags + args
   sub = "!f() { git subtree $1 --prefix $2 $3 master --squash; }; f"
