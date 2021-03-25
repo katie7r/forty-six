@@ -2,6 +2,8 @@
 
 # zsh # # # # # # # # # # # # # # # # #
 
+export ZSH_DISABLE_COMPFIX=true
+
 [ -f "$HOME/.git-completion.zsh" ] && source "$HOME/.git-completion.zsh"
 
 fpath=(~/.zsh $fpath)
@@ -34,12 +36,6 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 unsetopt share_history
-
-# compatibility # # # # # # # # # # # #
-
-# export PIPENV_SHELL_COMPAT=1
-# export PIPENV_MAX_DEPTH=6
-# source $(pew shell_config)
 
 # prompt  # # # # # # # # # # # # # # #
 
