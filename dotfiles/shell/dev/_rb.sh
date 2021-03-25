@@ -2,17 +2,6 @@
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-# add RVM to PATH for scripting
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="$HOME/.bin:$PATH"
-# export PATH="$HOME/.bin:$PATH:$HOME/.rvm/bin"
-
-# support for rbenv
-if [ -d ~/.rbenv ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
-fi
-
 # linting + formatting  # # # # # # # #
 
 alias autocop='rubocop -a --only'

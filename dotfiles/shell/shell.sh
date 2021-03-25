@@ -30,15 +30,10 @@ if [ -f $DOTFILES_SHELL/_aliases.sh ]; then
     source $DOTFILES_SHELL/_aliases.sh
 fi
 
-# &c  # # # # # # # # # # # # # # # # #
+# paths # # # # # # # # # # # # # # # #
 
-# git
-if [ -f /opt/git/bin/git ]; then
-    export PATH=/opt/git/bin:${PATH}
-    unset SSH_ASKPASS
+if [ -f $DOTFILES_SHELL/_paths.sh ]; then
+    source $DOTFILES_SHELL/_paths.sh
 fi
 
-# mysql
-export PATH="$PATH:/usr/local/mysql/bin"
-export DYLD_LIBRARY_PATH="/usr/local/mysql/lib:$DYLD_LIBRARY_PATH"
-
+# &c  # # # # # # # # # # # # # # # # #
