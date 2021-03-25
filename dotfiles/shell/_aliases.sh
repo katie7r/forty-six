@@ -97,6 +97,7 @@ portcullis ()
 {
     lsof -i tcp:"$1"
 }
+alias port=portcullis
 
 # bower: uninstall package, clear cache, and reinstall package (with pkg name
 # or a URL/local filepath), e.g., $ bower-reinstall local-package /path/to/pkg
