@@ -86,10 +86,13 @@ fenestrate ()
     fi
 }
 
+# git # # # # # # # # # # # # # # # # #
+
+alias gap='git add ${1:-"."} --patch'
+
 # misc  # # # # # # # # # # # # # # # #
 
 alias dirtree='tree -v --charset utf-8'
-alias gap='git add ${1:-"."} --patch'
 
 # misc functions  # # # # # # # # # # #
 

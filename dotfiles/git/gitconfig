@@ -12,8 +12,11 @@
   st = status
   br = "!git --no-pager branch" # branch
   cb = checkout -b
+  cd = "!f() { git checkout $(git default); }; f"
   cp = cherry-pick
-  up = "!f() { git remote update origin && git pull origin ${1:-'master'}; }; f"
+  rb = rebase
+  rd = "!f() { git rebase $(git default); }; f"
+  up = "!f() { git remote update origin && git pull origin ${1:-$(git default)}; }; f"
 
   # ADDING/COMMITTING # # # # # # # # #
 
@@ -75,6 +78,12 @@
   # author-email = "!f() { git re-author $GIT_AUTHOR_EMAIL $1 $2 && git re-author $GIT_COMMITTER_EMAIL $1 $2; }; f"
 
   # MISCELLANEOUS # # # # # # # # # # #
+
+  # get the branch name of the default branch
+  default = "!f() { git remote show ${1:-'origin'} | grep 'HEAD branch' | sed 's/.*: //'; }; f"
+
+  # checkout default branch, pull updates, re-checkout original branch, and rebase on default branch
+  update = "!f() { git cd && git up && git co - && git rd; }; f"
 
   # get the branch name for a commit (for cherry-picking ranges from one commit to the end, mostly)
   commit-from-branch = "!f() { CFB=$(git name-rev --name-only $1); echo ${CFB%~*}; }; f"
