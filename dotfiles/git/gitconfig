@@ -20,7 +20,7 @@
 
   # ADDING/COMMITTING # # # # # # # # #
 
-  amend = commit --amend -C HEAD
+  amend = commit --amend --no-edit
   addmend = "!f() { git add --all && git amend; }; f"
   unadd = reset
   uncommit = reset --soft HEAD^
