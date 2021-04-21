@@ -10,18 +10,18 @@
   co = checkout
   ci = commit
   st = status
-  br = "!git --no-pager branch" # branch
+  br = !git --no-pager branch # branch
   cb = checkout -b
-  cd = "!f() { git checkout $(git default); }; f"
+  cd = "!git checkout $(git default)"
   cp = cherry-pick
   rb = rebase
-  rd = "!f() { git rebase $(git default); }; f"
-  up = "!f() { git remote update origin && git pull origin ${1:-$(git default)}; }; f"
+  rd = "!git rebase $(git default)"
+  up = "!git remote update origin && git pull origin ${1:-$(git default)}"
 
   # ADDING/COMMITTING # # # # # # # # #
 
   amend = commit --amend --no-edit
-  addmend = "!f() { git add --all && git amend; }; f"
+  addmend = !git add --all && git amend
   unadd = reset
   uncommit = reset --soft HEAD^
   rollback = reset --hard
@@ -31,7 +31,7 @@
   unstash = stash apply
 
   # NOTE: second arg can be either a commit hash or omitted (to include all commits from first arg)
-  cherries-pick = "!f() { git cp $1^..${2:-$(git commit-from-branch $1)}; }; f"
+  cherries-pick = "!git cp $1^..${2:-$(git commit-from-branch $1)}"
   cps = cherries-pick
 
   # WIP (un)add/(un)commit all changes
@@ -42,31 +42,32 @@
 
   diffs = diff --staged
   # show commits different between local and remote
-  distance = "!f() { git --no-pager diff-compare --no-decorate HEAD...${1:-'origin'}/${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+  distance = "!git --no-pager diff-compare --no-decorate HEAD...${1:-'origin'}/${2:-$(git rev-parse --abbrev-ref HEAD)}"
   # show last commit(s)  # TODO: default '1' if no $1 or if $1 is not int (e.g,, `git last master`, so don't have to `git last 1 master`)
-  last = "!f() { git --no-pager log -${1:-'1'} ${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+  last = "!git --no-pager log -${1:-'1'} ${2:-$(git rev-parse --abbrev-ref HEAD)}"
   # most recent commit
   latest = diff HEAD~1 HEAD
 
   # TODO: consolidate these into single alias, e.g., `git compare branch {branch} {--ff(/new/since)|--all}`
   diff-compare = log --oneline --graph --first-parent --left-right --decorate
   # these four aliases show commit diff between branches, with "<" and ">" indicating which branch
-  compare = "!f() { git diff-compare $1..$2; }; f" # vs specified branch, new commits
-  compare-all = "!f() { git diff-compare $1...$2; }; f" # vs specified branch, all commits
-  compare-with = "!f() { git diff-compare HEAD..$2; }; f" # vs current branch, new commits
-  compare-all-with = "!f() { git diff-compare HEAD...$2; }; f" # vs current branch, all commits
+  compare = "!git diff-compare $1..$2" # vs specified branch, new commits
+  compare-all = "!git diff-compare $1...$2" # vs specified branch, all commits
+  compare-with = "!git diff-compare HEAD..$2" # vs current branch, new commits
+  compare-all-with = "!git diff-compare HEAD...$2" # vs current branch, all commits
 
   # HISTORY # # # # # # # # # # # # # #
 
   hist = log --pretty=format:\"%C(dim)%h %ad |%Creset %s%d [%an]\" --graph --date=short
   # Time-based
-  yesterday = "!f() { git --no-pager hist --since=yesterday.midnight --until=today.midnight $*; printf '\n'; }; f"
-  today = "!f() { git --no-pager hist --since=today.midnight $*; printf '\n'; }; f"
-  week = "!f() { git --no-pager hist --since='6 days ago' $*; printf '\n'; }; f" # e.g., `$ git week` on Friday will show from Saturday onward
-  month = "!f() { git --no-pager hist --since='1 month ago' $*; printf '\n'; }; f"
-  recent = "!f() { git --no-pager hist -${1:-'10'}; printf '\n'; }; f"
+  chrono = "!f() { git --no-pager hist $*; printf '\n'; }; f"
+  yesterday = !git chrono --since=yesterday.midnight --until=today.midnight $*
+  today = !git chrono --since=today.midnight  $*
+  week = !git chrono --since=@{6.days.ago} $* # e.g., `$ git week` on Friday will show from Saturday onward
+  month = !git chrono --since=@{1.month.ago} $*
+  recent = !git chrono -${1:-'10'} $*
   # Only my commits  # TODO: pull author from config
-  my = "!f() { git $* --author='katie'; }; f" # e.g., `git my week` or `git my last`
+  my = !git $* --author='katie' # e.g., `git my week` or `git my last`
 
   # TODO: Change author name/email
   # (https://stackoverflow.com/questions/4981126/how-to-amend-several-commits-in-git-to-change-author)
@@ -80,21 +81,21 @@
   # MISCELLANEOUS # # # # # # # # # # #
 
   # get the branch name of the default branch
-  default = "!f() { git remote show ${1:-'origin'} | grep 'HEAD branch' | sed 's/.*: //'; }; f"
+  default = "!git remote show ${1:-'origin'} | grep 'HEAD branch' | sed 's/.*: //'"
 
   # checkout default branch, pull updates, re-checkout original branch, and rebase on default branch
-  update = "!f() { git cd && git up && git co - && git rd; }; f"
+  update = !git cd && git up && git co - && git rd
 
   # get the branch name for a commit (for cherry-picking ranges from one commit to the end, mostly)
   commit-from-branch = "!f() { CFB=$(git name-rev --name-only $1); echo ${CFB%~*}; }; f"
 
   # use subtree commands (add, pull) with defaults flags + args
-  sub = "!f() { git subtree $1 --prefix $2 $3 master --squash; }; f"
+  sub = "!git subtree $1 --prefix $2 $3 master --squash"
 
   # use instead of push -f to ensure --force-with-lease
   force = push --force-with-lease
   # rebase to root, squashing all commits to a single one with the message given by the user, e.g., `$ git reboot "Starting fresh"`
-  reboot = "!f() { git reset $(git commit-tree HEAD^{tree} -m '$1'); }; f"
+  reboot = "!git reset $(git commit-tree HEAD^{tree} -m '$1')"
   # for funsies
   ass = "!f() { echo \"Hey, now - there’s no need for name calling.\"; }; f"
 
