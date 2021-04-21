@@ -13,6 +13,7 @@
   cm = commit -m
   co = checkout
   cp = cherry-pick
+  ff = merge --ff-only
   rb = rebase
   rd = "!git rebase $(git default)"
   st = status
