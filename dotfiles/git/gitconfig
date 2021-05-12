@@ -10,14 +10,16 @@
   br = !git --no-pager branch # branch
   cb = checkout -b
   cd = "!git checkout $(git default)"
+  cf = commit --fixup
   cm = commit -m
   co = checkout
   cp = cherry-pick
   ff = merge --ff-only
+  ra = "!git rebase --autosquash --interactive ${1:-$(git default)}" # autosquash with `cf`
   rb = rebase
   rd = "!git rebase $(git default)"
   st = status
-  up = "!git remote update origin && git pull origin ${1:-$(git default)}"
+  up = "!git remote update origin && git pull origin ${1:-$(git default)}" # TODO: current branch instead of default?
 
   # ADDING/COMMITTING # # # # # # # # #
 
@@ -43,9 +45,9 @@
 
   diffs = diff --staged
   # show commits different between local and remote
-  distance = "!git --no-pager diff-compare --no-decorate HEAD...${1:-'origin'}/${2:-$(git rev-parse --abbrev-ref HEAD)}"
+  distance = "!f() { git --no-pager diff-compare --no-decorate HEAD...${1:-'origin'}/${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
   # show last commit(s)  # TODO: default '1' if no $1 or if $1 is not int (e.g,, `git last master`, so don't have to `git last 1 master`)
-  last = "!git --no-pager log -${1:-'1'} ${2:-$(git rev-parse --abbrev-ref HEAD)}"
+  last = "!f() { git --no-pager log -${1:-'1'} ${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
   # most recent commit
   latest = diff HEAD~1 HEAD
 
