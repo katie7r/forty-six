@@ -5,6 +5,7 @@ export PIPENV_SHELL_COMPAT=true
 export PIPENV_VENV_IN_PROJECT=true
 
 alias pipe="pipenv run"
+alias pmp="pipe ./manage.py"
 
 # pyenv
 if command -v pyenv 1>/dev/null 2>&1; then

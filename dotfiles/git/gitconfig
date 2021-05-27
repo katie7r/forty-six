@@ -14,7 +14,7 @@
   cm = commit -m
   co = checkout
   cp = cherry-pick
-  ff = merge --ff-only
+  ff = "!git merge --ff-only ${1:-$(git default)}"
   ra = "!git rebase --autosquash --interactive ${1:-$(git default)}" # autosquash with `cf`
   rb = rebase
   rd = "!git rebase $(git default)"
@@ -45,9 +45,9 @@
 
   diffs = diff --staged
   # show commits different between local and remote
-  distance = "!f() { git --no-pager diff-compare --no-decorate HEAD...${1:-'origin'}/${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+  distance = "!f() { git --no-pager diff-compare --no-decorate HEAD...${1:-'origin'}/${2:-$(git branch --show-current)}; }; f"
   # show last commit(s)  # TODO: default '1' if no $1 or if $1 is not int (e.g,, `git last master`, so don't have to `git last 1 master`)
-  last = "!f() { git --no-pager log -${1:-'1'} ${2:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+  last = "!f() { git --no-pager log -${1:-'1'} ${2:-$(git branch --show-current)}; }; f"
   # most recent commit
   latest = diff HEAD~1 HEAD
 
@@ -77,8 +77,13 @@
   # get the branch name of the default branch
   default = "!git remote show ${1:-'origin'} | grep 'HEAD branch' | sed 's/.*: //'"
 
-  # checkout default branch, pull updates, re-checkout original branch, and rebase on default branch
+  # check out default branch, pull updates, re-checkout original branch, and rebase on default branch
   update = !git cd && git up && git co - && git rd
+  # do ^that^, then force (with lease) push branch
+  force-up = "!git update && git force ${1:-'origin'} ${2:-$(git branch --show-current)}"
+
+  # check out copy of branch with current name prefixed with "BACKUP/" (or given prefix)
+  backup = "!f() { git cb ${1:-'BACKUP'}/$(git branch --show-current) && git co -; }; f"
 
   # get the branch name for a commit (for cherry-picking ranges from one commit to the end, mostly)
   commit-from-branch = "!f() { CFB=$(git name-rev --name-only $1); echo ${CFB%~*}; }; f"
