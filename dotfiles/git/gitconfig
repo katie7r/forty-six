@@ -63,8 +63,7 @@
 
   hist = log --pretty=format:\"%C(dim)%h %ad |%Creset %s%d [%an]\" --graph --date=short
   # Commits listed in reverse order (formatted for squash PR message), given the number of commits to include
-  # TODO: fix arg (so `$ git list 10` instead of `$ git list -10`)
-  list = !git --no-pager log --reverse --pretty=format:'* %s'
+  list = "!f() { git --no-pager log -$1 --reverse --pretty=format:'* %s'; }; f"
   # Time-based
   chrono = "!f() { git --no-pager hist $*; printf '\n'; }; f"
   yesterday = !git chrono --since=yesterday.midnight --until=today.midnight $*
