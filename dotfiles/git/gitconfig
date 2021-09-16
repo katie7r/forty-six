@@ -34,7 +34,7 @@
   unstash = stash apply
 
   # NOTE: second arg can be either a commit hash or omitted (to include all commits from first arg)
-  cherries-pick = "!git cp $1^..${2:-$(git commit-from-branch $1)}"
+  cherries-pick = "!git cp $1 && git cp $1..${2:-$(git commit-from-branch $1)}"
   cps = cherries-pick
 
   # WIP (un)add/(un)commit all changes
@@ -62,6 +62,9 @@
   # HISTORY # # # # # # # # # # # # # #
 
   hist = log --pretty=format:\"%C(dim)%h %ad |%Creset %s%d [%an]\" --graph --date=short
+  # Commits listed in reverse order (formatted for squash PR message), given the number of commits to include
+  # TODO: fix arg (so `$ git list 10` instead of `$ git list -10`)
+  list = !git --no-pager log --reverse --pretty=format:'* %s'
   # Time-based
   chrono = "!f() { git --no-pager hist $*; printf '\n'; }; f"
   yesterday = !git chrono --since=yesterday.midnight --until=today.midnight $*
