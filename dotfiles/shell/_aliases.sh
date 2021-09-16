@@ -90,6 +90,11 @@ fenestrate ()
 
 alias gap='git add ${1:-"."} --patch'
 
+# docker  # # # # # # # # # # # # # # #
+
+alias dock='docker-compose up'
+alias dock-it="docker exec -it $1 $*"
+
 # misc  # # # # # # # # # # # # # # # #
 
 alias dirtree='tree -v --charset utf-8'
