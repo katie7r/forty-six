@@ -15,7 +15,7 @@
   co = checkout
   cp = cherry-pick
   ff = "!git merge --ff-only ${1:-$(git default)}"
-  ra = "!git rebase --autosquash --interactive ${1:-$(git default)}" # autosquash with `cf`
+  ra = "!f() { git rebase --autosquash --interactive ${1:-$(git default)}; }; f" # autosquash with `cf`
   rb = rebase
   rd = "!git rebase $(git default)"
   st = status
