@@ -79,6 +79,13 @@
   # get the branch name of the default branch
   default = "!git remote show ${1:-'origin'} | grep 'HEAD branch' | sed 's/.*: //'"
 
+  # get the branches that match the given pattern
+  branches = !git br | grep --color=always
+  brs = branches
+
+  # get the most recently-committed branches
+  brecent = "!git for-each-ref --sort=-committerdate refs/heads --count=${1:-'7'} --color=always --format='%(color:black)%(committerdate:relative)|%(HEAD)%(color:green)%(refname:short)|%(color:white)%(subject)%(color:reset)' | column -ts'|'"
+
   # check out default branch, pull updates, re-checkout original branch, and rebase on default branch
   update = !git cd && git up && git co - && git rd
   # do ^that^, then force (with lease) push branch
