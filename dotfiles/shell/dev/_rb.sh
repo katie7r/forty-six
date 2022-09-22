@@ -2,6 +2,10 @@
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
+# credentials # # # # # # # # # # # # #
+
+alias cred='EDITOR="code --wait" bin/rails credentials:edit --environment'
+
 # linting + formatting  # # # # # # # #
 
 alias autocop='rubocop -a --only'
