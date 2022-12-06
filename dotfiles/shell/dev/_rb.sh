@@ -9,6 +9,7 @@ alias cred='EDITOR="code --wait" bin/rails credentials:edit --environment'
 # linting + formatting  # # # # # # # #
 
 alias autocop='rubocop -a --only'
+alias autocop!='rubocop -A --only'
 alias atcop='rubocop --only'
 alias cop='rubocop | grep -i ${1}'
 
