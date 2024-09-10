@@ -1,3 +1,5 @@
+alias mpy="python manage.py"
+
 # env # # # # # # # # # # # # # # # # #
 
 # pipenv
@@ -26,6 +28,27 @@ alias v.ex='deactivate'
 alias v.ls='lsvirtualenv'
 
 # linting + formatting  # # # # # # # #
+
+# ruff --fix changed files
+
+ruff-fix()
+{
+  # Fix files with staged changes
+  if [[ $1 = "staged" ]] || [[ $1 = "added" ]] || [[ $1 = "A" ]]; then
+    GIT_STATE="A"
+  # Fix files with unstaged changes
+  elif [[ $1 = "unstaged" ]] || [[ $1 = "unadded" ]] || [[ $1 = "modified" ]] || [[ $1 = "M" ]]; then
+    GIT_STATE="M"
+  # Fix untracked files
+  elif [[ $1 = "untracked" ]] || [[ $1 = "new" ]] || [[ $1 = "U" ]] || [[ $1 = "??" ]]; then
+    GIT_STATE="??"
+  # Fix all modified files (staged/unstaged/untracked/whatever)
+  else
+    GIT_STATE="."
+  fi
+
+  git st -s | grep "$GIT_STATE" | cut -c 4- | xargs ruff --fix
+}
 
 # alias bk='black ${1:-"."} -S --exclude="migrations"'
 bk()
@@ -56,3 +79,16 @@ alias vlake8="command flake8"
 # delete all Python migration files in project
 alias rm-migrations='find . -path "*/migrations/*.py*" -not -name "__init__.py" -delete'
 
+# django boilerplate create app shorthand
+startapp() {
+  # Get project from pwd (presuming in project root and naming convention of project.api)
+  PROJECT_DIR=${PWD##*/}
+  IFS='.' read -r PROJECT APICOM <<< "$PROJECT_DIR"
+
+  # Get app name (from arg) and directory (from project + app name)
+  APP_NAME=$1
+  APP_DIR="${PROJECT}/apps/${APP_NAME}"
+
+  # Do the thing
+  mkdir -p $APP_DIR && python manage.py startapp $APP_NAME $APP_DIR
+}

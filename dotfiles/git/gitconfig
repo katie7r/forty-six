@@ -64,6 +64,8 @@
   hist = log --pretty=format:\"%C(dim)%h %ad |%Creset %s%d [%an]\" --graph --date=short
   # Commits listed in reverse order (formatted for squash PR message), given the number of commits to include
   list = "!f() { git --no-pager log -$1 --reverse --pretty=tformat:'* %s'; }; f"
+  # TODO: branch name arg to git list (e.g., git list 3 some-other-branch)
+  # list = "!f() { if [[ $# -eq 1 ]]; then CHERRY=''; else CHERRY='--cherry '$(git default)'...${2}'; fi; git --no-pager log -$1 $CHERRY --reverse --pretty=tformat:'* %s'; }; f"
   # Time-based
   chrono = "!f() { git --no-pager hist $*; printf '\n'; }; f"
   yesterday = !git chrono --since=yesterday.midnight --until=today.midnight $*
@@ -84,7 +86,9 @@
   brs = branches
 
   # get the most recently-committed branches
-  brecent = "!git for-each-ref --sort=-committerdate refs/heads --count=${1:-'7'} --color=always --format='%(color:black)%(committerdate:relative)|%(HEAD)%(color:green)%(refname:short)|%(color:white)%(subject)%(color:reset)' | column -ts'|'"
+  brecent = "!git for-each-ref --sort=-committerdate refs/heads --count=10 --color=always --format='%(color:black)%(committerdate:relative)|%(HEAD)%(color:green)%(refname:short)|%(color:white)%(subject)%(color:reset)' | column -ts'|'"
+              # git for-each-ref --sort=-committerdate refs/heads --count=${1:-'7'} --color=always --format='' | column -ts'|'
+              # --format='%(color:black)%(committerdate:relative)|%(HEAD)%(color:green)%(refname:short)|%(color:white)%(subject)%(color:reset)'
 
   # check out default branch, pull updates, re-checkout original branch, and rebase on default branch
   update = !git cd && git up && git co - && git rd
