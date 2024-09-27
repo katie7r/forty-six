@@ -28,4 +28,8 @@ Then (for iTerm2) set both the Regular font and the Non-ASCII Font in "iTerm > P
 
 # Other Things to Set Up
 
+### Natural Text Editing in iTerm
+
+Settings > Profiles > Keys > Key Mappings > (...) Presets > Natural Text Editing
+
 ### VS Code Settings Sync
