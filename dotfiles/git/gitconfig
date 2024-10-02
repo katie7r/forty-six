@@ -113,6 +113,13 @@
   # for funsies
   ass = "!f() { echo \"Hey, now - there’s no need for name calling.\"; }; f"
 
+  # CONDITIONAL / CASE-SPECIFIC # # # #
+
+  # pull (with rebase) updates from specified (or current) branch and, if applicable, run rails migrations
+  catch-up = "!f() { git remote update origin && git pull origin ${1:-$(git branch --show-current)} --rebase && if [[ $(git ls-tree -r --name-only $(git default) 'bin/rails') ]]; then bin/rails db:migrate; fi }; f"
+  catchup = catch-up
+  ketchup = catch-up
+
   # DEFAULT ALIASES # # # # # # # # # #
 
   type = cat-file -t
