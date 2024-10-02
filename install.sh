@@ -36,13 +36,19 @@ for d in $DOTFILES/dotfiles/*; do
         [[ $FILE == _* ]] && continue
 
         if [ -f $LINK -o -h $LINK ]; then
-            echo "Replacing: $LINK"
-            # rm $LINK
+            if [[ -L "$LINK" ]]; then
+                echo "Replacing: $LINK"
+                rm $LINK
+                ln -s $f $LINK
+            else
+                echo "File already exists: $LINK"
+            fi
         else
             echo "Linking: $LINK"
+            ln -s $f $LINK
         fi
 
-        ln -s $f $LINK
+        # ln -s $f $LINK
     done
 done
 
