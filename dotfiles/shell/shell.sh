@@ -37,3 +37,7 @@ if [ -f $DOTFILES_SHELL/_paths.sh ]; then
 fi
 
 # &c  # # # # # # # # # # # # # # # # #
+
+if [ -d $HOME/.asdf ]; then
+    source $HOME/.asdf/asdf.sh
+fi

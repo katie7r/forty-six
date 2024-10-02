@@ -13,27 +13,29 @@ export PKG_CONFIG_PATH="/usr/local/opt/libpq/lib/pkgconfig"
 
 # mysql # # # # # # # # # # # # # # # #
 
-export PATH="$PATH:/usr/local/mysql/bin"
-export DYLD_LIBRARY_PATH="/usr/local/mysql/lib:$DYLD_LIBRARY_PATH"
+if [ -d /usr/local/mysql ]; then
+  export PATH="$PATH:/usr/local/mysql/bin"
+  export DYLD_LIBRARY_PATH="/usr/local/mysql/lib:$DYLD_LIBRARY_PATH"
+fi
 
 # nvm # # # # # # # # # # # # # # # # #
 
 # this loads nvm
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-# poetry  # # # # # # # # # # # # # # #
-
-export PATH="$HOME/.poetry/bin:$PATH"
+if [ -d $HOME/.nvm ]; then
+  export NVM_DIR="$HOME/.nvm"
+    [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+    [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+fi
 
 # postgres  # # # # # # # # # # # # # #
 
-export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+if [ -d /Applications/Postgres.app ]; then
+  export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+fi
 
 # rbenv # # # # # # # # # # # # # # # #
 
-if [ -d ~/.rbenv ]; then
+if [ -d $HOME/.rbenv ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
 fi
@@ -41,5 +43,6 @@ fi
 # rvm # # # # # # # # # # # # # # # # #
 # ensure this is the last path change
 
-export PATH="$PATH:$HOME/.rvm/bin"
-# export PATH="$HOME/.bin:$PATH"
+if [ -d $HOME/.rvm ]; then
+  export PATH="$PATH:$HOME/.rvm/bin"
+fi
